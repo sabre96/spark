@@ -11,7 +11,6 @@ class Customer extends Model {
      * @var array
      */
     protected $fillable = [
-        'user_id',
         'name',
         'email',
         'phone',
@@ -27,10 +26,15 @@ class Customer extends Model {
 
     protected $hidden = [
         'id',
+        'user_id',
         'created_on'
     ];
 
     public function user () {
         return $this->belongsTo(User::class);
+    }
+
+    public function contactPerson () {
+        return $this->hasOne(User::class);
     }
 }

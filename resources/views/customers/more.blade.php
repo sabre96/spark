@@ -10,7 +10,7 @@
                 <th>Name</th>
                 <th>E-mail</th>
                 <th>Phone</th>
-                <th>Street</th>
+                <th>Address</th>
                 <th>Zip</th>
                 <th>City</th>
                 <th>Country</th>
@@ -22,7 +22,6 @@
             </thead>
 
             <tbody>
-            <!-- foreach loop here -->
             <tr>
                 <td>{{ $customer->name }}</td>
                 <td>{{ $customer->email }}</td>
@@ -35,10 +34,10 @@
                 <td>{{ $customer->btw }}</td>
                 <td>{{ $customer->created_at }}</td>
                 <td>{{ $customer->ending_on }}</td>
+                <td><a class="btn btn-warning btn-sm" href="/customers/{{ $customer->id }}/edit">edit</a></td>
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-warning btn-sm" href="/customers/{{ $customer->id }}/edit">edit</a>
         <br/>
 
         <!-- Contact person -->
@@ -51,33 +50,30 @@
                 <th>Last name</th>
                 <th>E-mail</th>
                 <th>Phone</th>
-                <th>Mobile</th>
-                <th>Street</th>
+                <th>Address</th>
                 <th>Zip</th>
                 <th>City</th>
                 <th>Country</th>
+                <th>Start date</th>
+                <th>End date</th>
             </tr>
             </thead>
 
             <tbody>
-            <!-- foreach loop here -->
             <tr>
-                <td>{{ $customer->p_firstName }}</td>
-                <td>{{ $customer->p_lastName }}</td>
-                <td>{{ $customer->p_email }}</td>
-                <td>{{ $customer->p_phone }}</td>
-                <td>{{ $customer->p_mobile }}</td>
-                <td>{{ $customer->p_street }} {{ $customer->p_streetNum }}</td>
-                <td>{{ $customer->p_zip }}</td>
-                <td>{{ $customer->p_city }}</td>
-                <td>{{ $customer->p_country }}</td>
+                <td>{{ $person->firstName }}</td>
+                <td>{{ $person->lastName }}</td>
+                <td>{{ $person->email }}</td>
+                <td>{{ $person->phone }}</td>
+                <td>{{ $person->streetName }} {{ $person->houseNumber }}</td>
+                <td>{{ $person->zipCode }}</td>
+                <td>{{ $person->city }}</td>
+                <td>{{ $person->country }}</td>
+                <td>{{ $person->created_at }}</td>
+                <td>{{ $person->ending_on }}</td>
             </tr>
             </tbody>
         </table>
-        <button id="editPerson" class="btn btn-warning" type="button"
-                onclick="$('#personForm').show(1000); $('#editPerson').hide(1000);">
-            edit
-        </button>
     </div>
     <script>
         //Company error's

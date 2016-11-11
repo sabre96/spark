@@ -223,18 +223,29 @@
         crossorigin="anonymous">
 </script>
 <script>
-    @if ($user->type == "Company" || $user->type == "Contact person")
+    @if ($user->type == "Company")
         $('#ending_onDiv').show();
         $('#companyRow').show();
+    @elseif ($user->type == "Contact person")
+            $('#ending_onDiv').show();
     @endif
+
 
     function typeSelect() {
         var typeSelectList = $('select#type');
         var selectedValue  = $('option:selected', typeSelectList).val();
 
         if (selectedValue == "Company" || selectedValue == "Contact person") {
-            $('#ending_onDiv').show(1000);
-            $('#companyRow').show(1000);
+            if (selectedValue == "Contact person") {
+                $('#ending_onDiv').show(1000);
+                $('#kvk').val('');
+                $('#btw').val('');
+
+                $('#companyRow').hide(1000);
+            } else {
+                $('#ending_onDiv').show(1000);
+                $('#companyRow').show(1000);
+            }
         } else {
             $('#ending_on').val('');
             $('#ending_onDiv').hide(1000);
