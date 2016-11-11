@@ -4,23 +4,8 @@
 </head>
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h1>{{ $branche->name }}</h1></div>
-                <div class="panel-body">
-                    <div class="form-check">
-                    <form action="/newcategory_branche/{{ $branche->id }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <ul class="list-group">
-                        @foreach ($categories2 as $category)
-                            <li class="list-group-item">{{ Form::checkbox('id[]', $category->id, in_array($category->id, $all_in_branche)) }}
-                                {{ Form::label('category', $category->name) }}</li>
-                        @endforeach
-                    </ul>
-                    <input type="submit" class="btn btn-primary">
-                </form>
-            </div>
-                    <hr>
+        <div class="col-md-6 col-md-offset-3">
+            <h1>{{ $branche->name }}</h1>
             <ul class="list-group">
                 @foreach($categories as $category)
                     <li class="list-group-item" onmouseover="" style="cursor: pointer;" onclick="location.href = '/category/{{ $category->id }}';">
@@ -28,8 +13,20 @@
                     </li>
                 @endforeach
             </ul>
+            <h3>Add a category to this branch</h3>
+            <div class="form-check">
+            <form action="/newcategory_branche/{{ $branche->id }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <ul class="list-group">
+                @foreach ($categories2 as $category)
+                    <li class="list-group-item">{{ Form::checkbox('id[]', $category->id, in_array($category->id, $all_in_branche)) }}
+                        {{ Form::label('category', $category->name) }}</li>
+                @endforeach
+                </ul>
+                <br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+            </div>
         </div>
         </div>
-    </div>
-    </div>
 @endsection
