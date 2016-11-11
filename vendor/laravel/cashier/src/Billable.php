@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use InvalidArgumentException;
 use Stripe\Token as StripeToken;
 use Stripe\Charge as StripeCharge;
+use Stripe\Refund as StripeRefund;
 use Illuminate\Support\Collection;
 use Stripe\Invoice as StripeInvoice;
 use Stripe\Customer as StripeCustomer;
@@ -49,6 +50,32 @@ trait Billable
         }
 
         return StripeCharge::create($options, ['api_key' => $this->getStripeKey()]);
+    }
+
+    /**
+     * Refund a customer for a charge.
+     *
+     * @param  string  $charge
+     * @param  array  $options
+     * @return \Stripe\Charge
+     *
+     * @throws \Stripe\Error\Refund
+     */
+    public function refund($charge, array $options = [])
+    {
+        $options['charge'] = $charge;
+
+        return StripeRefund::create($options, ['api_key' => $this->getStripeKey()]);
+    }
+
+    /**
+     * Determines if the customer currently has a card on file.
+     *
+     * @return bool
+     */
+    public function hasCardOnFile()
+    {
+        return (bool) $this->card_brand;
     }
 
     /**
@@ -178,13 +205,13 @@ trait Billable
     /**
      * Invoice the billable entity outside of regular billing cycle.
      *
-     * @return bool
+     * @return StripeInvoice|bool
      */
     public function invoice()
     {
         if ($this->stripe_id) {
             try {
-                StripeInvoice::create(['customer' => $this->stripe_id], $this->getStripeKey())->pay();
+                return StripeInvoice::create(['customer' => $this->stripe_id], $this->getStripeKey())->pay();
             } catch (StripeErrorInvalidRequest $e) {
                 return false;
             }
@@ -328,12 +355,55 @@ trait Billable
                     ? $customer->sources->retrieve($customer->default_source)
                     : null;
 
-        if ($source) {
-            $this->card_brand = $source->brand;
-            $this->card_last_four = $source->last4;
-        }
+        $this->fillCardDetails($source);
 
         $this->save();
+    }
+
+    /**
+     * Synchronises the customer's card from Stripe back into the database.
+     *
+     * @return $this
+     */
+    public function updateCardFromStripe()
+    {
+        $customer = $this->asStripeCustomer();
+
+        $defaultCard = null;
+
+        foreach ($customer->sources->data as $card) {
+            if ($card->id === $customer->default_source) {
+                $defaultCard = $card;
+                break;
+            }
+        }
+
+        if ($defaultCard) {
+            $this->fillCardDetails($defaultCard)->save();
+        } else {
+            $this->forceFill([
+                'card_brand' => null,
+                'card_last_four' => null,
+            ])->save();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Fills the user's properties with the source from Stripe.
+     *
+     * @param \Stripe\Card|null  $card
+     * @return $this
+     */
+    protected function fillCardDetails($card)
+    {
+        if ($card) {
+            $this->card_brand = $card->brand;
+            $this->card_last_four = $card->last4;
+        }
+
+        return $this;
     }
 
     /**
@@ -407,7 +477,8 @@ trait Billable
      */
     public function createAsStripeCustomer($token, array $options = [])
     {
-        $options = array_merge($options, ['email' => $this->email]);
+        $options = array_key_exists('email', $options)
+                ? $options : array_merge($options, ['email' => $this->email]);
 
         // Here we will create the customer instance on Stripe and store the ID of the
         // user from Stripe. This ID will correspond with the Stripe user instances
@@ -467,7 +538,15 @@ trait Billable
      */
     public static function getStripeKey()
     {
-        return static::$stripeKey ?: getenv('STRIPE_SECRET');
+        if (static::$stripeKey) {
+            return static::$stripeKey;
+        }
+
+        if ($key = getenv('STRIPE_SECRET')) {
+            return $key;
+        }
+
+        return config('services.stripe.secret');
     }
 
     /**
