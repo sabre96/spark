@@ -20,6 +20,7 @@
                     <input type="submit" class="btn btn-primary">
                 </form>
             </div>
+                    <hr>
             <ul class="list-group">
                 @foreach($categories as $category)
                     <li class="list-group-item" onmouseover="" style="cursor: pointer;" onclick="location.href = '/category/{{ $category->id }}';">

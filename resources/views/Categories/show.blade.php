@@ -16,6 +16,7 @@
                     <button type="submit" class="btn btn-primary">Add Skill</button>
                 </div>
             </form>
+                    <hr>
             <ul class="list-group">
                 @foreach($category->skills as $skill)
                     <li class="list-group-item" onclick="location.href='/skill/{{ $skill->id }}'" onmouseover=" style='cursor:pointer';">
