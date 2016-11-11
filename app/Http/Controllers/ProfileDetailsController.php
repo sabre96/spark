@@ -28,7 +28,7 @@ class ProfileDetailsController extends Controller {
             'ending_on'   => 'required_if:type,Company,Contact person|date',
             'firstName'   => 'required|max:50|filled',
             'lastName'    => 'required|max:50|filled',
-            'companyName' => 'required|max:100|unique:users,companyName,' . $user->id . '|filled',
+            'companyName' => 'required|max:100|filled',
             'email'       => 'email|required|max:255|unique:users,email,' . $user->id . '|filled',
             'streetName'  => 'required|max:100|filled',
             'houseNumber' => 'required|max:11|max:11|filled',
@@ -37,8 +37,8 @@ class ProfileDetailsController extends Controller {
             'country'     => 'required|max:100|filled',
             'phone'       => 'required|max:15|filled',
             'mobile'      => 'required|max:15|filled',
-            'kvk'         => 'required_if,type,Company,Contact person|digits:8|unique:users,kvk,' . $user->id,
-            'btw'         => 'required_if,type,Company,Contact person|max:15|unique:users,btw,' . $user->id,
+            'kvk'         => 'required_if:type,Company|digits:8|unique:users,kvk,' . $user->id,
+            'btw'         => 'required_if:type,Company|max:15|unique:users,btw,' . $user->id,
         ]);
 
         if (!( (request()->type == "Company") || (request()->type == "Contact person") )) {
