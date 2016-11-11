@@ -19,3 +19,13 @@
     </ul>
 </li>
 
+<li>
+    <a href="/category">
+        Categories
+    </a>
+</li>
+<li>
+    <a href="/branches">
+        Branches
+    </a>
+</li>
