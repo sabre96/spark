@@ -2,11 +2,13 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>{{ $category->name }}</h1>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h1>{{ $category->name }}</h1></div>
+                <div class="panel-body">
             <ul class="list-group">
             </ul>
-            <h3>Update category name</h3>
+            <h2>Update category name</h2>
             <form action="/updatecategory/{{ $category->id }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">

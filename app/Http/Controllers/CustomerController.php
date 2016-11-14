@@ -58,7 +58,14 @@ class CustomerController extends Controller {
     }
 
     public function more (Customer $customer) {
-        return view('customers.more', compact('customer'));
+        $user = Auth::user();
+
+        if ($user->type == "Contact person" && $user->companyName == $customer->name)
+            $person = Auth::user();
+        else
+            $person = null;
+
+        return view('customers.more', compact('customer', 'person'));
     }
 
     public function update (Customer $customer) {

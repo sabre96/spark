@@ -5,7 +5,8 @@
             <label for="company" class="col-md-4 control-label">Company</label>
 
             <div class="col-md-6">
-                <input id="company" type="name" class="form-control" name="team" v-model="registerForm.team" autofocus>
+                <input id="company" type="name" class="form-control" name="team"
+                       v-model="registerForm.team" placeholder="Max. 100 long" autofocus>
 
                 <span class="help-block" v-show="registerForm.errors.has('team')">
                     @{{ registerForm.errors.get('team') }}
@@ -76,7 +77,7 @@
 
         <div class="col-md-6">
             <input id="confirm" type="password" class="form-control" name="password_confirmation"
-                   v-model="registerForm.password_confirmation">
+                   v-model="registerForm.password_confirmation" placeholder="Retype above">
 
             <span class="help-block" v-show="registerForm.errors.has('password_confirmation')">
                 @{{ registerForm.errors.get('password_confirmation') }}
@@ -90,9 +91,8 @@
 
         <div class="col-md-6">
             <select name="type" id="type" class="form-control" v-model="registerForm.type">
-                <option value="">-- Choose user type --</option>
+                <option value="" selected>-- Choose user type --</option>
                 <option value="Guest">Guest</option>
-                <option value="Company">Company</option>
                 <option value="Contact person">Contact person</option>
                 <option value="Admin">Admin</option>
             </select>
