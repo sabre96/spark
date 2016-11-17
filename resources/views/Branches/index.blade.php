@@ -10,7 +10,7 @@
                     <form action="/newbranche" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" required></input>
+                            <input type="text" name="name" class="form-control" placeholder="Branch name" required/>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Add Branche</button>

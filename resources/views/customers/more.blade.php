@@ -60,6 +60,7 @@
             </thead>
 
             <tbody>
+            @if ($person)
             <tr>
                 <td>{{ $person->firstName }}</td>
                 <td>{{ $person->lastName }}</td>
@@ -72,6 +73,7 @@
                 <td>{{ $person->created_at }}</td>
                 <td>{{ $person->ending_on }}</td>
             </tr>
+            @endif
             </tbody>
         </table>
     </div>

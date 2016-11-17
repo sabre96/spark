@@ -26,7 +26,7 @@
     </a>
     <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">
-            <a href="/category">
+            <a href="/categories">
                 Categories
             </a>
         </li>
