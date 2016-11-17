@@ -23,7 +23,7 @@
                     <hr>
             <ul class="list-group">
                 @foreach($categories as $category)
-                    <li class="list-group-item" onmouseover="" style="cursor: pointer;" onclick="location.href = '/category/{{ $category->id }}';">
+                    <li class="list-group-item" onmouseover="" style="cursor: pointer;" onclick="location.href = '/categories/{{ $category->id }}';">
                         {{ $category->name }}
                     </li>
                 @endforeach
