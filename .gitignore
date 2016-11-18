@@ -1,4 +1,4 @@
-.env
+/.env
 _ide_helper.php
 .idea/
 vendor/
