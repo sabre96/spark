@@ -3,55 +3,34 @@
       <small class="text-muted">Skills</small>
     </li>
 
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-        Customers &nbsp;
-        <span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">
-          <a href="/customers/add">
-            Add customer
-          </a>
-        </li>
-
-        <li class="dropdown-header">
-          <a href="/customers/show">
-            Show customers
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <li>
-      <a>
+      <li>
+          <a>
         <span class="nav-caret">
           <i class="fa fa-caret-down"></i>
         </span>
-        <span class="nav-label"><b class="label rounded label-sm {{app.setting.theme.warn}}">5</b></span>
-        <span class="nav-icon">
+              <span class="nav-icon">
           <i class="material-icons">&#xe5c3;<span ui-include="'../assets/images/i_1.svg'"></span></i>
         </span>
-        <span class="nav-text">Apps</span>
-      </a>
-      <ul class="nav-sub">
-        <li ui-sref-active="active">
-          <a href="inbox.html" ui-sref="app.inbox.list"><span class="nav-text">Inbox</span></a>
-        </li>
-        <li ui-sref-active="active">
-          <a href="contact.html" ui-sref="app.contact"><span class="nav-text">Contacts</span></a>
-        </li>
-        <li ui-sref-active="active">
-          <a href="calendar.html" ui-sref="app.calendar"><span class="nav-text">Calendar</span></a>
-        </li>
-        <li ui-sref-active="active" class="hide" ng-class="{'show': 1}">
-          <a ui-sref="app.note.list"><span class="nav-text">Note</span></a>
-        </li>
-        <li ui-sref-active="active" class="hide" ng-class="{'show': 1}">
-          <a ui-sref="app.todo"><span class="nav-text">Todo</span></a>
-        </li>
-      </ul>
-    </li>
+              <span class="nav-text">Customers</span>
+          </a>
+          <ul class="nav-sub">
+              <li ui-sref-active="active">
+                  <a href="/customers/add"><span class="nav-text">Add Customer</span></a>
+              </li>
+              <li ui-sref-active="active">
+                  <a href="/customers/show"><span class="nav-text">Show Customer</span></a>
+              </li>
+          </ul>
+      </li>
+
+      <li ui-sref-active="active">
+          <a href="/categories">
+              <span class="nav-icon">
+                <i class="material-icons">&#xe5c3;<span ui-include="'../assets/images/i_1.svg'"></span></i>
+              </span>
+              <span class="nav-text">Categories</span>
+          </a>
+      </li>
 
     <li ng-class="{active:$state.includes('app.layout')}">
       <a>

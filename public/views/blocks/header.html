@@ -35,17 +35,17 @@
     <!-- / navbar right -->
 
     <!-- navbar collapse -->
-    <div class="collapse navbar-toggleable-sm" id="collapse">
-      <div ui-include="'../views/blocks/navbar.form.right.html'"></div>
+    <div>
       <!-- link and dropdown -->
       <ul class="nav navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href data-toggle="dropdown">
-            <i class="fa fa-fw fa-plus text-muted"></i>
-            <span>New</span>
-          </a>
-          <div ui-include="'../views/blocks/dropdown.new.html'"></div>
-        </li>
+          <li ui-sref-active="active">
+              <a href="/register">
+              <span class="nav-icon">
+                <i class="material-icons">create</i>
+              </span>
+                  <span class="nav-text">Register</span>
+              </a>
+          </li>
       </ul>
       <!-- / -->
     </div>
