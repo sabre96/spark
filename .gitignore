@@ -1,5 +1,4 @@
-.env
 _ide_helper.php
 .idea/
 vendor/
-spark
+.env
